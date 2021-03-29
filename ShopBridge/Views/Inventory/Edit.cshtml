@@ -1,0 +1,114 @@
+﻿@model ShopBridge
+@{
+    ViewBag.Title = "Edit";
+}
+<style>
+    table {
+        border-collapse: separate;
+        border-spacing: 0 15px;
+    }
+    #Description {
+        resize: none;
+    }
+</style>
+<script>
+    function validation() {        
+        var errorcount = 0;
+        if ($("#Name").val() == null || $("#Name").val() == "") {
+            $("#Name").css("border", "1px solid red");
+            errorcount = errorcount + 1;
+        } else {
+            $("#Name").css("border", "1px solid grey");
+        }
+        if ($("#Description").val() == null || $("#Description").val() == "") {            
+            $("#Description").css("border", "1px solid red");
+            errorcount = errorcount + 1;
+        }
+        else {
+            $("#Description").css("border", "1px solid grey");
+        }
+        if ($("#Price").val() == null || $("#Price").val() == "") {            
+            $("#Price").css("border", "1px solid red");
+            errorcount = errorcount + 1;
+
+        } else {
+            $("#Price").css("border", "1px solid grey");
+        }
+
+        if ($("#Qty").val() == null || $("#Qty").val() == "") {            
+            $("#Qty").css("border", "1px solid red");
+            errorcount = errorcount + 1;
+
+        } else {
+            $("#Qty").css("border", "1px solid grey");
+        }
+        if ($("#Status option:selected").val() == "") {           
+            $("#Status").css("border", "1px solid red");
+            errorcount = errorcount + 1;
+
+        } else {
+            $("#Status").css("border", "1px solid grey");
+        }
+
+        if (errorcount > 0) {            
+            alert("All fields are required!");
+            return false;
+        }
+    }   
+
+    function isNumber(evt) {       
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            alert("Only Numeric");
+            return false;
+        }
+        return true;
+    }
+</script>
+<h2>Update Inventory Details</h2>
+@using (Html.BeginForm("Edit", "Inventory", FormMethod.Post, new { onsubmit = "return validation();" }))
+{
+    if (Model != null)
+    {
+        <table width="100%" align="center">
+            <tr>
+                <td align="right">Name:</td>
+                <td>
+                    @Html.HiddenFor(x=>x.Id)
+                    @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+                
+                </td>
+            </tr>
+            <tr>
+                <td align="right">Description:</td>
+                <td>@Html.TextAreaFor(x => x.Description, new { @class = "form-control", @rows = "8", @cols = "15", @id = "Description" })</td>
+            </tr>
+            <tr>
+                <td align="right">Price:</td>
+                <td>@Html.TextBoxFor(x => x.Price, new { @class = "form-control", onkeypress = "return isNumber(event)" })</td>
+            </tr>
+            <tr>
+                <td align="right">Quantity:</td>
+                <td>@Html.TextBoxFor(x => x.Qty, new { @class = "form-control", onkeypress = "return isNumber(event)" })</td>
+            </tr>
+            <tr>
+                <td align="right">Status:</td>
+                <td>
+                    @Html.DropDownList("Status", new List<SelectListItem>() {
+                      new SelectListItem() { Text="Yes",Value="true"},
+                      new SelectListItem(){Text="No",Value="false"}
+                         }, "Select", new { @class = "form-control" })
+                </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>
+                    <input type="submit" value="Update" class="btn btn-primary" />
+                </td>
+            </tr>
+        </table>
+    }
+}
+
+
