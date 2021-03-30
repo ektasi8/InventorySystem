@@ -45,7 +45,7 @@ namespace ShopBridge.Controllers
         {
             return View();
         }
-        
+        //this is post create method 
         [HttpPost]        
         public ActionResult Create(ShopBridge products)
         {
@@ -66,7 +66,7 @@ namespace ShopBridge.Controllers
             return View(products);
         }
 
-
+         //this is for DELETE information of inventory
         public ActionResult Delete(int id)
         {
             using (var client = new HttpClient())
@@ -87,7 +87,7 @@ namespace ShopBridge.Controllers
             
             //return RedirectToAction();
         }
-
+      //this is for edit information of inventory
         public ActionResult Edit(int id)
         {
             ShopBridge product = null;
@@ -109,7 +109,7 @@ namespace ShopBridge.Controllers
             }
             return View(product);
         }
-        //this is for edit information of inventory
+        //this is for update information of inventory
         [HttpPost]
         public ActionResult Edit(ShopBridge product)
         {
