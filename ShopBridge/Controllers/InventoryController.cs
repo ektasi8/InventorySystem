@@ -109,7 +109,7 @@ namespace ShopBridge.Controllers
             }
             return View(product);
         }
-        
+        //this is for edit information of inventory
         [HttpPost]
         public ActionResult Edit(ShopBridge product)
         {
